@@ -1,264 +1,271 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <title>Gerador de Cartão Profissional</title>
-  <link rel="icon" type="image/png" href="https://img.icons8.com/?size=100&id=Y4lyJQODpHWN&format=png&color=000000">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f8f9fa;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <title>Gerador de Cartão Profissional</title>
+    <link rel="icon" type="image/png" href="https://img.icons8.com/?size=100&id=Y4lyJQODpHWN&format=png&color=000000">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-    .container {
-      width: 100%;
-      max-width: 400px;
-    }
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
 
-    h2 {
-      color: #2c3e50;
-      margin-bottom: 25px;
-      font-weight: 600;
-      font-size: 1.5rem;
-    }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
 
-    .card-form {
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      width: 100%;
-    }
+        .card-form {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            width: 100%;
+        }
 
-    .form-group {
-      margin-bottom: 20px;
-      text-align: left;
-    }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 500;
-      color: #495057;
-      font-size: 14px;
-    }
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #495057;
+            font-size: 14px;
+        }
 
-    .form-group input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ced4da;
-      border-radius: 6px;
-      font-size: 15px;
-      box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
 
-    .form-group input:focus {
-      border-color: #4dabf7;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.2);
-    }
+        .form-group input:focus {
+            border-color: #4dabf7;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.2);
+        }
 
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 25px;
-    }
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 25px;
+        }
 
-    button {
-      padding: 12px;
-      border-radius: 6px;
-      border: none;
-      font-size: 15px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+        button {
+            padding: 12px;
+            border-radius: 6px;
+            border: none;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
-    .btn-primary {
-      background-color: #1971c2;
-      color: white;
-    }
+        .btn-primary {
+            background-color: #1971c2;
+            color: white;
+        }
 
-    .btn-primary:hover {
-      background-color: #1864ab;
-    }
+        .btn-primary:hover {
+            background-color: #1864ab;
+        }
 
-    .btn-secondary {
-      background-color: #f1f3f5;
-      color: #495057;
-    }
+        .btn-secondary {
+            background-color: #f1f3f5;
+            color: #495057;
+        }
 
-    .btn-secondary:hover {
-      background-color: #e9ecef;
-    }
+        .btn-secondary:hover {
+            background-color: #e9ecef;
+        }
 
-    #jsonInput {
-      display: none;
-    }
+        #jsonInput {
+            display: none;
+        }
 
-    footer {
-      margin-top: 30px;
-      color: #868e96;
-      font-size: 13px;
-      text-align: center;
-    }
+        footer {
+            margin-top: 30px;
+            color: #868e96;
+            font-size: 13px;
+            text-align: center;
+        }
 
-    .required-field::after {
-      content: " *";
-      color: #e03131;
-    }
-  </style>
+        .required-field::after {
+            content: " *";
+            color: #e03131;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <h2>Gerador de Cartão de Cadastro</h2>
-    <div class="card-form">
-      <div class="form-group">
-        <label for="login" class="required-field">Login</label>
-        <input type="text" id="login" placeholder="Digite seu login">
-      </div>
-      
-      <div class="form-group">
-        <label for="celular">Número Celular</label>
-        <input type="text" id="celular" placeholder="Opcional">
-      </div>
-      
-      <div class="form-group">
-        <label for="nome" class="required-field">Nome do Cliente</label>
-        <input type="text" id="nome" placeholder="Nome completo">
-      </div>
-      
-      <div class="form-group">
-        <label for="senha" class="required-field">Senha</label>
-        <input type="text" id="senha" placeholder="Senha de acesso">
-      </div>
-
-      <div class="button-group">
-        <button class="btn-primary" onclick="gerarPDF()">
-          <span>📄</span> Gerar PDF
-        </button>
-        <button class="btn-secondary" onclick="salvarJSON()">
-          <span>💾</span> Salvar como JSON
-        </button>
-        <button class="btn-secondary" onclick="document.getElementById('jsonInput').click()">
-          <span>📂</span> Carregar JSON
-        </button>
-        <input type="file" id="jsonInput" accept=".json" onchange="carregarJSON(event)">
-      </div>
+    <div class="container">
+        <h2>Gerador de Cartão de Cadastro</h2>
+        <div class="card-form">
+            <div class="form-group">
+                <label for="login" class="required-field">Login</label>
+                <input type="text" id="login" placeholder="Digite seu login">
+            </div>
+            <div class="form-group">
+                <label for="senha" class="required-field">Senha</label>
+                <input type="text" id="senha" placeholder="Senha de acesso">
+            </div>
+            <div class="form-group">
+                <label for="cadastro" class="required-field">Nome do Cadastro</label>
+                <input type="text" id="cadastro" placeholder="Ex: Enel, Light, etc">
+            </div>
+            <div class="form-group">
+                <label for="celular">Número Celular</label>
+                <input type="text" id="celular" placeholder="Opcional">
+            </div>
+            <div class="form-group">
+                <label for="nome" class="required-field">Nome do Cliente</label>
+                <input type="text" id="nome" placeholder="Nome completo">
+            </div>
+            <div class="button-group">
+                <button class="btn-primary" onclick="gerarPDF()">
+                    <span>📄</span> Gerar PDF
+                </button>
+                <button class="btn-secondary" onclick="salvarJSON()">
+                    <span>💾</span> Salvar como JSON
+                </button>
+                <button class="btn-secondary" onclick="document.getElementById('jsonInput').click()">
+                    <span>📂</span> Carregar JSON
+                </button>
+                <input type="file" id="jsonInput" accept=".json" onchange="carregarJSON(event)">
+            </div>
+        </div>
     </div>
-  </div>
 
-  <footer>
-    Desenvolvido por José - https://github.com/Junior2099
-  </footer>
+    <footer>
+        Desenvolvido por José - https://github.com/Junior2099
+    </footer>
 
-  <script>
-    const logoURL = 'https://img.icons8.com/?size=100&id=k1xXzD3NEvLF&format=png&color=000000';
+    <script>
+        const logoURL = 'https://img.icons8.com/?size=100&id=k1xXzD3NEvLF&format=png&color=000000';
 
-    async function gerarPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
+        async function gerarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
 
-      const login = document.getElementById('login').value.trim();
-      const celular = document.getElementById('celular').value.trim();
-      const nome = document.getElementById('nome').value.trim();
-      const senha = document.getElementById('senha').value.trim();
+            const login = document.getElementById('login').value.trim();
+            const senha = document.getElementById('senha').value.trim();
+            const cadastro = document.getElementById('cadastro').value.trim();
+            const celular = document.getElementById('celular').value.trim();
+            const nome = document.getElementById('nome').value.trim();
 
-      if (!login || !nome || !senha) {
-        alert("Por favor, preencha todos os campos obrigatórios.");
-        return;
-      }
+            if (!login || !nome || !senha || !cadastro) {
+                alert("Por favor, preencha todos os campos obrigatórios.");
+                return;
+            }
 
-      const x = 20;
-      const y = 40;
-      const cardWidth = 85.6;
-      const cardHeight = 53.98;
+            const x = 20;
+            const y = 40;
+            const cardWidth = 85.6;
+            const cardHeight = 53.98;
 
-      doc.setDrawColor(200);
-      doc.setLineWidth(0.5);
-      doc.roundedRect(x, y, cardWidth, cardHeight, 3, 3);
+            doc.setDrawColor(200);
+            doc.setLineWidth(0.5);
+            doc.roundedRect(x, y, cardWidth, cardHeight, 3, 3);
 
-      doc.setFontSize(12);
-      doc.setFont("helvetica", "bold");
-      doc.text("CARTÃO CADASTRO", x + cardWidth/2, y + 10, { align: 'center' });
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("CARTÃO CADASTRO", x + cardWidth / 2, y + 10, { align: 'center' });
 
-      doc.setLineWidth(0.2);
-      doc.line(x + 5, y + 15, x + cardWidth - 5, y + 15);
+            doc.setLineWidth(0.2);
+            doc.line(x + 5, y + 15, x + cardWidth - 5, y + 15);
 
-      doc.setFontSize(10);
-      doc.setFont("helvetica", "normal");
-      doc.text(`Login: ${login}`, x + 5, y + 22);
-      if (celular) doc.text(`Celular: ${celular}`, x + 5, y + 29);
-      doc.text(`Nome: ${nome}`, x + 5, y + 36);
-      doc.text(`Senha: ${senha}`, x + 5, y + 43);
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            
+            doc.text(`Login: ${login}`, x + 5, y + 22);
+            doc.text(`Senha: ${senha}`, x + 5, y + 29);
+            doc.text(`Cadastro: ${cadastro}`, x + 5, y + 36);
+            if (celular) doc.text(`Celular: ${celular}`, x + 5, y + 43);
+            doc.text(`Nome: ${nome}`, x + 5, y + 50);
 
-      const img = new Image();
-      img.crossOrigin = "anonymous";
-      img.src = logoURL;
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = logoURL;
 
-      img.onload = function () {
-        try {
-          doc.addImage(img, 'PNG', x + cardWidth - 20, y + 5, 15, 15);
-        } catch (e) {
-          console.warn("Logo não carregado:", e);
+            img.onload = function () {
+                try {
+                    doc.addImage(img, 'PNG', x + cardWidth - 20, y + 5, 15, 15);
+                } catch (e) {
+                    console.warn("Logo não carregado:", e);
+                }
+                doc.save("cartao-cadastro.pdf");
+            };
+
+            img.onerror = function () {
+                doc.save("cartao-cadastro.pdf");
+            };
         }
-        doc.save("cartao-profissional.pdf");
-      };
 
-      img.onerror = function () {
-        doc.save("cartao-profissional.pdf");
-      };
-    }
+        function salvarJSON() {
+            const dados = {
+                login: document.getElementById('login').value,
+                senha: document.getElementById('senha').value,
+                cadastro: document.getElementById('cadastro').value,
+                celular: document.getElementById('celular').value,
+                nome: document.getElementById('nome').value,
+                dataCriacao: new Date().toISOString()
+            };
 
-    function salvarJSON() {
-      const dados = {
-        login: document.getElementById('login').value,
-        celular: document.getElementById('celular').value,
-        nome: document.getElementById('nome').value,
-        senha: document.getElementById('senha').value,
-        dataCriacao: new Date().toISOString()
-      };
-
-      const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = "dados-profissional.json";
-      link.click();
-    }
-
-    function carregarJSON(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        try {
-          const dados = JSON.parse(e.target.result);
-          document.getElementById('login').value = dados.login || "";
-          document.getElementById('celular').value = dados.celular || "";
-          document.getElementById('nome').value = dados.nome || "";
-          document.getElementById('senha').value = dados.senha || "";
-        } catch (error) {
-          alert("Erro ao carregar arquivo. Verifique o formato.");
+            const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = "dados-cadastro.json";
+            link.click();
         }
-      };
-      reader.readAsText(file);
-    }
-  </script>
+
+        function carregarJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const dados = JSON.parse(e.target.result);
+                    document.getElementById('login').value = dados.login || "";
+                    document.getElementById('senha').value = dados.senha || "";
+                    document.getElementById('cadastro').value = dados.cadastro || "";
+                    document.getElementById('celular').value = dados.celular || "";
+                    document.getElementById('nome').value = dados.nome || "";
+                } catch (error) {
+                    alert("Erro ao carregar arquivo. Verifique o formato.");
+                }
+            };
+            reader.readAsText(file);
+        }
+    </script>
 </body>
+
 </html>
